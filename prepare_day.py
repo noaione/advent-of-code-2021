@@ -43,7 +43,7 @@ day_folder.mkdir(parents=True, exist_ok=True)
 
 PYTHON_INIT = """import typing as t
 
-in_data = [num.rstrip() for num in open("input", "r).readlines() if num]
+in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
 
 # Part A
 print(f"Part A: ")
