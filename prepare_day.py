@@ -30,6 +30,7 @@ else:
 dayf = str(current_day).zfill(2)
 
 day_folder = current / "src" / f"day{dayf}"
+test_file = current / "tests" / f"test_day{dayf}.py"
 
 if day_folder.exists():
     print(f"[!] Day {dayf} already initialized.")
@@ -43,19 +44,43 @@ day_folder.mkdir(parents=True, exist_ok=True)
 
 PYTHON_INIT = """import typing as t
 
-in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
 
 # Part A
-print(f"Part A: ")
+def part_a(input_strings: t.List[str]) -> int:
+    return 0
+
 
 # Part B
-print(f"Part B: ")
+def part_b(input_strings: t.List[str]) -> int:
+    return 0
 
-# if __name__ == "__main__":
-#     pass
-#     in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
-#     print(f"Part A: {solve(in_data, 2)}")
-#     print(f"Part B: {solve(in_data, 3)}")
+
+if __name__ == "__main__":
+    in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
+
+    print(f"Part A: {part_a(in_data)}")
+    print(f"Part B: {part_b(in_data)}")
+"""
+
+PYTHON_TEST_INIT = """import sys
+from pathlib import Path
+
+current_path = Path(__file__).absolute().parent.parent
+source_dir = current_path / "src"
+sys.path.insert(0, str(source_dir))
+
+from {}.solution import part_a, part_b  # noqa
+
+EXAMPLES = \"\"\"
+\"\"\".split("\n")
+
+
+def test_part_a_solution():
+    assert part_a(EXAMPLES) == 0
+
+
+def test_part_b_solution():
+    assert part_b(EXAMPLES) == 0
 """
 
 print(f"[*] Downloading input day {dayf}")
@@ -66,5 +91,9 @@ with open(day_folder / "input", "w") as fp:
 print("[*] Generating solution template...")
 with open(day_folder / "solution.py", "w") as fp:
     fp.write(PYTHON_INIT)
+
+print("[*] Generating test template...")
+with open(test_file, "w") as fp:
+    fp.write(PYTHON_TEST_INIT.format(f"day{dayf}"))
 
 print("[*] Done!")
