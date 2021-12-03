@@ -1,0 +1,26 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.8, 3.9, 3.10]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Python Setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install Dependencies
+        run: |
+          pip install pytest
+
+      - name: Test on ${{ matrix.python }}
+        run: |
+          pytest -v tests
