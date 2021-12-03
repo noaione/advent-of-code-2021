@@ -9,7 +9,7 @@ def part_a(binary_lines: t.List[str]) -> int:
     max_len = len(binary_lines[0])
     gamma = ""
     for col in range(max_len):
-        current = {}
+        current = {"0": 0, "1": 0}
         for line in binary_lines:
             if line[col] not in current:
                 current[line[col]] = 1
@@ -23,11 +23,11 @@ def part_a(binary_lines: t.List[str]) -> int:
 
 
 def select_lines(current: t.Dict[str, t.List[str]], reverse: bool = False) -> t.List[str]:
-    if len(current.get("0", [])) == len(current.get("1", [])):
-        return current.get("1", []) if not reverse else current.get("0", [])
-    elif len(current.get("0", [])) > len(current.get("1", [])):
-        return current.get("0", []) if not reverse else current.get("1", [])
-    return current.get("1", []) if not reverse else current.get("0", [])
+    zero = current.get("0", [])
+    one = current.get("1", [])
+    if len(zero) > len(one):
+        return zero if not reverse else one
+    return one if not reverse else zero
 
 
 def part_b(binary_lines: t.List[str]) -> int:
@@ -37,15 +37,11 @@ def part_b(binary_lines: t.List[str]) -> int:
     check_lines = binary_lines.copy()
     check_lines_epsilon = binary_lines.copy()
     for col in range(max_len):
-        current: t.Dict[str, t.List[str]] = {}
-        current_epsilon: t.Dict[str, t.List[str]] = {}
+        current: t.Dict[str, t.List[str]] = {"0": [], "1": []}
+        current_epsilon: t.Dict[str, t.List[str]] = {"0": [], "1": []}
         for line in check_lines:
-            if line[col] not in current:
-                current[line[col]] = []
             current[line[col]].append(line)
         for line in check_lines_epsilon:
-            if line[col] not in current_epsilon:
-                current_epsilon[line[col]] = []
             current_epsilon[line[col]].append(line)
         if len(check_lines) > 1:
             check_lines = select_lines(current)
@@ -53,8 +49,6 @@ def part_b(binary_lines: t.List[str]) -> int:
             check_lines_epsilon = select_lines(current_epsilon, True)
         gamma = check_lines[0]
         epsilon = check_lines_epsilon[0]
-        current.clear()
-        current_epsilon.clear()
     return int(gamma, 2) * int(epsilon, 2)
 
 
