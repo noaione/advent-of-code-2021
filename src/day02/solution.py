@@ -1,7 +1,5 @@
 from typing import List
 
-in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
-
 
 # Part A
 def part_a(input_strings: List[str]) -> int:
@@ -34,5 +32,7 @@ def part_b(input_strings: List[str]) -> int:
     return x * y
 
 
-print(f"Part A: {part_a(in_data)}")
-print(f"Part A: {part_b(in_data)}")
+if __name__ == "__main__":
+    in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
+    print(f"Part A: {part_a(in_data)}")
+    print(f"Part A: {part_b(in_data)}")

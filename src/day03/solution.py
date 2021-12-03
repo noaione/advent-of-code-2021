@@ -1,19 +1,5 @@
 import typing as t
 
-in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
-examples = """00100
-11110
-10110
-10111
-10101
-01111
-00111
-11100
-10000
-11001
-00010
-01010""".split("\n")
-
 
 def flip_bits(bits: str) -> str:
     return bits.replace("0", "2").replace("1", "0").replace("2", "1")
@@ -73,5 +59,7 @@ def part_b(binary_lines: t.List[str]) -> int:
 
 
 # Answers
-print(f"Part A: {part_a(in_data)}")
-print(f"Part B: {part_b(in_data)}")
+if __name__ == "__main__":
+    in_data = [num.rstrip() for num in open("input", "r").readlines() if num]
+    print(f"Part A: {part_a(in_data)}")
+    print(f"Part B: {part_b(in_data)}")

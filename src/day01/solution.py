@@ -1,18 +1,26 @@
-in_data = [int(num.rstrip()) for num in open("input", "r").readlines() if num]
+import typing as t
+
 
 # Part A
-prev = in_data[0]
-part_a = 0
-for num in in_data[1:]:
-    if num > prev:
-        part_a += 1
-    prev = num
-print(f"Part A: {part_a}")
+def part_a(contents: t.List[str]) -> int:
+    total = 0
+    for i in range(1, len(contents)):
+        if contents[i] > contents[i - 1]:
+            total += 1
+    return total
+
 
 # Part B
-part_b = 0
-for i in range(0, len(in_data) - 2):
-    if in_data[i + 2] > in_data[i - 1]:
-        part_b += 1
+def part_b(contents: t.List[str]) -> int:
+    total = 0
+    for i in range(0, len(contents) - 2):
+        if contents[i + 2] > contents[i - 1]:
+            total += 1
+    return total
 
-print(f"Part B: {part_b}")
+
+if __name__ == "__main__":
+    in_data = [int(num.rstrip()) for num in open("input", "r").readlines() if num]
+
+    print(f"Part A: {part_a(in_data)}")
+    print(f"Part B: {part_b(in_data)}")
