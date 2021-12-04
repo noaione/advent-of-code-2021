@@ -72,7 +72,7 @@ sys.path.insert(0, str(source_dir))
 from {}.solution import part_a, part_b  # noqa
 
 EXAMPLES = \"\"\"
-\"\"\".split("\n")
+\"\"\".split("\\n")
 
 
 def test_part_a_solution():
