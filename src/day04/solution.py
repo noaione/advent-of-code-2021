@@ -45,25 +45,25 @@ class Board:
         return False
 
     def _check_row(self) -> bool:
-        for rows in enumerate(self.marker):
+        for rows in self.marker:
             if all(rows):
                 return True
         return False
 
     def check(self) -> bool:
-        if self._check_row() is not None:
+        if self._check_row():
             return True
-        if self._check_col() is not None:
+        if self._check_col():
             return True
         return False
 
-    def sum_of_non_winning(self):
-        sum_of_non_winning = 0
+    def sum_of_unmarked(self):
+        unmarked = 0
         for row in range(5):
             for col in range(5):
                 if not self.marker[row][col]:
-                    sum_of_non_winning += self.rows[row][col]
-        return sum_of_non_winning
+                    unmarked += self.rows[row][col]
+        return unmarked
 
 
 def parse_board(input_strings: t.List[str]) -> t.Tuple[t.List[Board], t.List[int]]:
@@ -98,8 +98,7 @@ def part_a(boards: t.List[Board], play_order: t.List[int]) -> int:
                 winning_play = move
                 break
 
-    sum_of_non_win = winning_board.sum_of_non_winning()
-    return winning_play * sum_of_non_win
+    return winning_play * winning_board.sum_of_unmarked()
 
 
 # Part B
@@ -116,7 +115,7 @@ def part_b(boards: t.List[Board], play_order: t.List[int]) -> int:
             if board.check():
                 winning_board.append(board)
                 winning_play.append(move)
-    return winning_board[-1].sum_of_non_winning() * winning_play[-1]
+    return winning_board[-1].sum_of_unmarked() * winning_play[-1]
 
 
 if __name__ == "__main__":
