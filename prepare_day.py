@@ -36,7 +36,8 @@ if day_folder.exists():
     print(f"[!] Day {dayf} already initialized.")
     exit(1)
 
-wait_for = input(f"[*] This will prepare day {dayf}, type `c` to cancel")
+print(f"[*] This will prepare day {dayf}, type `c` to cancel")
+wait_for = input("[?] > ")
 if wait_for.lower().strip() == "c":
     exit(0)
 
