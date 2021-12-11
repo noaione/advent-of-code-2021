@@ -1,4 +1,5 @@
 import configparser
+import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -26,6 +27,14 @@ if current_time.hour >= 12:
     current_day = current_time.day
 else:
     current_day = current_time.day - 1
+
+if len(sys.argv) > 1:
+    try:
+        current_day = int(sys.argv[1])
+        print(f"[*] Override Day: {current_day}")
+    except ValueError:
+        print("[!] Invalid day number")
+        sys.exit(1)
 
 dayf = str(current_day).zfill(2)
 
