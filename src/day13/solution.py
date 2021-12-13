@@ -93,7 +93,13 @@ def solve(input_strings: t.List[str], fold_count: int = 1) -> int:
         current_fold += 1
 
     if fold_count == -1:
-        print(matrixes)
+        for row in matrixes:
+            for value in row:
+                if value == 1:
+                    print("#", end="")
+                else:
+                    print(" ", end="")
+            print()
 
     # Count the number of 1s
     return sum(map(sum, matrixes))
